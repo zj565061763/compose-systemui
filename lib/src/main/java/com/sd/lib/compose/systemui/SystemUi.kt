@@ -7,12 +7,7 @@ fun FSystemUi(
     content: @Composable () -> Unit
 ) {
     var statusBarStack by remember { mutableStateOf<BrightnessStack?>(null) }
-    val statusBarBrightnessStack = LocalStatusBarBrightnessStack.current
-        ?: remember {
-            StatusBarBrightnessStack().also {
-                statusBarStack = it
-            }
-        }
+    val statusBarBrightnessStack = statusBarBrightnessStack { statusBarStack = it }
 
     val statusBarController = rememberStatusBarController()
     statusBarStack?.let { stack ->
@@ -31,12 +26,7 @@ fun FSystemUi(
 
 
     var navigationBarStack by remember { mutableStateOf<BrightnessStack?>(null) }
-    val navigationBarBrightnessStack = LocalNavigationBarBrightnessStack.current
-        ?: remember {
-            NavigationBarBrightnessStack().also {
-                navigationBarStack = it
-            }
-        }
+    val navigationBarBrightnessStack = navigationBarBrightnessStack { navigationBarStack = it }
 
     val navigationBarController = rememberNavigationBarController()
     navigationBarStack?.let { stack ->
@@ -59,4 +49,28 @@ fun FSystemUi(
     ) {
         content()
     }
+}
+
+@Composable
+private fun statusBarBrightnessStack(
+    callback: (stack: BrightnessStack) -> Unit,
+): IBrightnessStack {
+    return LocalStatusBarBrightnessStack.current
+        ?: remember {
+            StatusBarBrightnessStack().also {
+                callback(it)
+            }
+        }
+}
+
+@Composable
+private fun navigationBarBrightnessStack(
+    callback: (stack: BrightnessStack) -> Unit,
+): IBrightnessStack {
+    return LocalNavigationBarBrightnessStack.current
+        ?: remember {
+            NavigationBarBrightnessStack().also {
+                callback(it)
+            }
+        }
 }
