@@ -1,6 +1,9 @@
 package com.sd.lib.compose.systemui
 
-import androidx.compose.runtime.*
+import androidx.activity.viewModels
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.DisposableEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -8,42 +11,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun FSystemUi(
     content: @Composable () -> Unit
 ) {
-    var statusBarStack by remember { mutableStateOf<BrightnessStack?>(null) }
-    val statusBarBrightnessStack = statusBarBrightnessStack { statusBarStack = it }
-
-    val statusBarController = rememberStatusBarController()
-    statusBarStack?.let { stack ->
-        DisposableEffect(statusBarController, stack) {
-            val callback = BrightnessStack.Callback { brightness ->
-                if (brightness != null) {
-                    statusBarController.isLight = brightness is Brightness.Light
-                }
-            }
-            stack.registerCallback(callback)
-            onDispose {
-                stack.unregisterCallback(callback)
-            }
+    val statusBarBrightnessStack = LocalStatusBarBrightnessStack.current
+        ?: viewModel<BrightnessStackViewModel>().statusBarBrightnessStack.also {
+            ObserverStatusBarBrightnessStack(it)
         }
-    }
 
-
-    var navigationBarStack by remember { mutableStateOf<BrightnessStack?>(null) }
-    val navigationBarBrightnessStack = navigationBarBrightnessStack { navigationBarStack = it }
-
-    val navigationBarController = rememberNavigationBarController()
-    navigationBarStack?.let { stack ->
-        DisposableEffect(navigationBarController, stack) {
-            val callback = BrightnessStack.Callback { brightness ->
-                if (brightness != null) {
-                    navigationBarController.isLight = brightness is Brightness.Light
-                }
-            }
-            stack.registerCallback(callback)
-            onDispose {
-                stack.unregisterCallback(callback)
-            }
+    val navigationBarBrightnessStack = LocalNavigationBarBrightnessStack.current
+        ?: viewModel<BrightnessStackViewModel>().navigationBarBrightnessStack.also {
+            ObserverNavigationBarBrightnessStack(it)
         }
-    }
 
     CompositionLocalProvider(
         LocalStatusBarBrightnessStack provides statusBarBrightnessStack,
@@ -53,25 +29,45 @@ fun FSystemUi(
     }
 }
 
+fun androidx.activity.ComponentActivity.statusBarBrightnessStack(): IBrightnessStack {
+    val viewModel by viewModels<BrightnessStackViewModel>()
+    return viewModel.statusBarBrightnessStack
+}
+
+fun androidx.activity.ComponentActivity.navigationBarBrightnessStack(): IBrightnessStack {
+    val viewModel by viewModels<BrightnessStackViewModel>()
+    return viewModel.navigationBarBrightnessStack
+}
+
 @Composable
-private fun statusBarBrightnessStack(
-    callback: (stack: BrightnessStack) -> Unit,
-): IBrightnessStack {
-    val stack = LocalStatusBarBrightnessStack.current
-    if (stack != null) return stack
-    return viewModel<BrightnessStackViewModel>().statusBarBrightnessStack.also {
-        callback(it)
+private fun ObserverStatusBarBrightnessStack(stack: BrightnessStack) {
+    val statusBarController = rememberStatusBarController()
+    DisposableEffect(statusBarController, stack) {
+        val callback = BrightnessStack.Callback { brightness ->
+            if (brightness != null) {
+                statusBarController.isLight = brightness is Brightness.Light
+            }
+        }
+        stack.registerCallback(callback)
+        onDispose {
+            stack.unregisterCallback(callback)
+        }
     }
 }
 
 @Composable
-private fun navigationBarBrightnessStack(
-    callback: (stack: BrightnessStack) -> Unit,
-): IBrightnessStack {
-    val stack = LocalNavigationBarBrightnessStack.current
-    if (stack != null) return stack
-    return viewModel<BrightnessStackViewModel>().navigationBarBrightnessStack.also {
-        callback(it)
+private fun ObserverNavigationBarBrightnessStack(stack: BrightnessStack) {
+    val navigationBarController = rememberNavigationBarController()
+    DisposableEffect(navigationBarController, stack) {
+        val callback = BrightnessStack.Callback { brightness ->
+            if (brightness != null) {
+                navigationBarController.isLight = brightness is Brightness.Light
+            }
+        }
+        stack.registerCallback(callback)
+        onDispose {
+            stack.unregisterCallback(callback)
+        }
     }
 }
 
