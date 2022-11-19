@@ -15,10 +15,7 @@ interface IBrightnessStack {
     fun remove(brightness: Brightness)
 }
 
-class StatusBarBrightnessStack : BrightnessStack()
-class NavigationBarBrightnessStack : BrightnessStack()
-
-abstract class BrightnessStack : IBrightnessStack {
+internal class BrightnessStack : IBrightnessStack {
     private var _callback: Callback? = null
 
     @Synchronized

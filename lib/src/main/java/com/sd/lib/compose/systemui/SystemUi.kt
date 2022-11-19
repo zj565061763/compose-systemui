@@ -1,6 +1,8 @@
 package com.sd.lib.compose.systemui
 
 import androidx.compose.runtime.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun FSystemUi(
@@ -55,24 +57,25 @@ fun FSystemUi(
 private fun statusBarBrightnessStack(
     callback: (stack: BrightnessStack) -> Unit,
 ): IBrightnessStack {
-    val callbackUpdated by rememberUpdatedState(callback)
-    return LocalStatusBarBrightnessStack.current
-        ?: remember {
-            StatusBarBrightnessStack().also {
-                callbackUpdated(it)
-            }
-        }
+    val stack = LocalStatusBarBrightnessStack.current
+    if (stack != null) return stack
+    return viewModel<BrightnessStackViewModel>().statusBarBrightnessStack.also {
+        callback(it)
+    }
 }
 
 @Composable
 private fun navigationBarBrightnessStack(
     callback: (stack: BrightnessStack) -> Unit,
 ): IBrightnessStack {
-    val callbackUpdated by rememberUpdatedState(callback)
-    return LocalNavigationBarBrightnessStack.current
-        ?: remember {
-            NavigationBarBrightnessStack().also {
-                callbackUpdated(it)
-            }
-        }
+    val stack = LocalNavigationBarBrightnessStack.current
+    if (stack != null) return stack
+    return viewModel<BrightnessStackViewModel>().navigationBarBrightnessStack.also {
+        callback(it)
+    }
+}
+
+internal class BrightnessStackViewModel : ViewModel() {
+    val statusBarBrightnessStack = BrightnessStack()
+    val navigationBarBrightnessStack = BrightnessStack()
 }
