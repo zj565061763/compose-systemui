@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.sd.demo.compose_systemui.ui.theme.AppTheme
-import com.sd.lib.compose.systemui.Brightness
-import com.sd.lib.compose.systemui.FStatusBarBrightness
+import com.sd.lib.compose.systemui.FStatusBarDark
+import com.sd.lib.compose.systemui.FStatusBarLight
 import com.sd.lib.compose.systemui.rememberStatusBarController
 
 class StatusBarActivity : ComponentActivity() {
@@ -53,9 +53,13 @@ private fun Content() {
  */
 @Composable
 private fun BarBrightness() {
-    var brightness by remember { mutableStateOf(Brightness.dark()) }
+    var isLight by remember { mutableStateOf(false) }
 
-    FStatusBarBrightness(brightness)
+    if (isLight) {
+        FStatusBarLight()
+    } else {
+        FStatusBarDark()
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -64,7 +68,7 @@ private fun BarBrightness() {
     ) {
         Button(
             onClick = {
-                brightness = Brightness.light()
+                isLight = true
             }
         ) {
             Text("light")
@@ -72,7 +76,7 @@ private fun BarBrightness() {
 
         Button(
             onClick = {
-                brightness = Brightness.dark()
+                isLight = false
             }
         ) {
             Text("dark")
