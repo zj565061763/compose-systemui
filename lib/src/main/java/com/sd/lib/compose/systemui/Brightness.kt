@@ -33,16 +33,6 @@ interface IBrightnessStack {
      * 移除
      */
     fun remove(brightness: Brightness)
-
-    companion object {
-        internal val Empty = object : IBrightnessStack {
-            override fun add(brightness: Brightness) {
-            }
-
-            override fun remove(brightness: Brightness) {
-            }
-        }
-    }
 }
 
 class StatusBarBrightnessStack : BrightnessStack()

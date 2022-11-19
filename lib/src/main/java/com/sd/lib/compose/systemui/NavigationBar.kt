@@ -5,7 +5,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 
-val LocalNavigationBarBrightnessStack = staticCompositionLocalOf { IBrightnessStack.Empty }
+val LocalNavigationBarBrightnessStack = staticCompositionLocalOf<IBrightnessStack?> { null }
 
 @Composable
 fun FNavigationBarLight() {
@@ -21,8 +21,9 @@ fun FNavigationBarDark() {
 
 @Composable
 private fun NavigationBarBrightness(brightness: Brightness) {
-    val stack = LocalNavigationBarBrightnessStack.current
-    if (stack == IBrightnessStack.Empty) error("CompositionLocal LocalNavigationBarBrightnessStack not present")
+    val stack = checkNotNull(LocalNavigationBarBrightnessStack.current) {
+        "CompositionLocal LocalNavigationBarBrightnessStack not present"
+    }
     DisposableEffect(stack, brightness) {
         stack.add(brightness)
         onDispose {

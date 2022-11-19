@@ -8,7 +8,6 @@ fun FSystemUi(
 ) {
     var statusBarStack by remember { mutableStateOf<BrightnessStack?>(null) }
     val statusBarBrightnessStack = LocalStatusBarBrightnessStack.current
-        .takeIf { it != IBrightnessStack.Empty }
         ?: remember {
             StatusBarBrightnessStack().also {
                 statusBarStack = it
@@ -33,7 +32,6 @@ fun FSystemUi(
 
     var navigationBarStack by remember { mutableStateOf<BrightnessStack?>(null) }
     val navigationBarBrightnessStack = LocalNavigationBarBrightnessStack.current
-        .takeIf { it != IBrightnessStack.Empty }
         ?: remember {
             NavigationBarBrightnessStack().also {
                 navigationBarStack = it
