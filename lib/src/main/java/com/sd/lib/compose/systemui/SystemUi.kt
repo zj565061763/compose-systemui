@@ -1,6 +1,5 @@
 package com.sd.lib.compose.systemui
 
-import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -29,14 +28,9 @@ fun FSystemUi(
     }
 }
 
-fun androidx.activity.ComponentActivity.statusBarBrightnessStack(): IBrightnessStack {
-    val viewModel by viewModels<BrightnessStackViewModel>()
-    return viewModel.statusBarBrightnessStack
-}
-
-fun androidx.activity.ComponentActivity.navigationBarBrightnessStack(): IBrightnessStack {
-    val viewModel by viewModels<BrightnessStackViewModel>()
-    return viewModel.navigationBarBrightnessStack
+internal class BrightnessStackViewModel : ViewModel() {
+    val statusBarBrightnessStack = BrightnessStack()
+    val navigationBarBrightnessStack = BrightnessStack()
 }
 
 @Composable
@@ -69,9 +63,4 @@ private fun ObserverNavigationBarBrightnessStack(stack: BrightnessStack) {
             stack.unregisterCallback(callback)
         }
     }
-}
-
-internal class BrightnessStackViewModel : ViewModel() {
-    val statusBarBrightnessStack = BrightnessStack()
-    val navigationBarBrightnessStack = BrightnessStack()
 }
