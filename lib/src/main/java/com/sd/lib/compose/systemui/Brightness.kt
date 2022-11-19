@@ -1,26 +1,6 @@
 package com.sd.lib.compose.systemui
 
 /**
- * 明亮度
- */
-sealed class Brightness {
-    /**
-     * 亮色
-     */
-    class Light internal constructor() : Brightness()
-
-    /**
-     * 暗色
-     */
-    class Dark internal constructor() : Brightness()
-
-    companion object {
-        fun light(): Brightness = Light()
-        fun dark(): Brightness = Dark()
-    }
-}
-
-/**
  * 明亮度容器
  */
 interface IBrightnessStack {
@@ -71,6 +51,26 @@ abstract class BrightnessStack : IBrightnessStack {
 
     fun interface Callback {
         fun update(brightness: Brightness?)
+    }
+}
+
+/**
+ * 明亮度
+ */
+sealed class Brightness {
+    /**
+     * 亮色
+     */
+    class Light internal constructor() : Brightness()
+
+    /**
+     * 暗色
+     */
+    class Dark internal constructor() : Brightness()
+
+    companion object {
+        fun light(): Brightness = Light()
+        fun dark(): Brightness = Dark()
     }
 }
 
