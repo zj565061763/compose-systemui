@@ -55,10 +55,11 @@ fun FSystemUi(
 private fun statusBarBrightnessStack(
     callback: (stack: BrightnessStack) -> Unit,
 ): IBrightnessStack {
+    val callbackUpdated by rememberUpdatedState(callback)
     return LocalStatusBarBrightnessStack.current
         ?: remember {
             StatusBarBrightnessStack().also {
-                callback(it)
+                callbackUpdated(it)
             }
         }
 }
@@ -67,10 +68,11 @@ private fun statusBarBrightnessStack(
 private fun navigationBarBrightnessStack(
     callback: (stack: BrightnessStack) -> Unit,
 ): IBrightnessStack {
+    val callbackUpdated by rememberUpdatedState(callback)
     return LocalNavigationBarBrightnessStack.current
         ?: remember {
             NavigationBarBrightnessStack().also {
-                callback(it)
+                callbackUpdated(it)
             }
         }
 }
