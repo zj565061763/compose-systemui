@@ -3,6 +3,7 @@ package com.sd.lib.compose.systemui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.ProvidedValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -10,21 +11,29 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun FSystemUi(
     content: @Composable () -> Unit
 ) {
-    val statusBarBrightnessStack = LocalStatusBarBrightnessStack.current
-        ?: viewModel<BrightnessStackViewModel>().statusBarBrightnessStack.also {
-            ObserverStatusBarBrightnessStack(it)
-        }
+    val listValue = ArrayList<ProvidedValue<*>>(2)
 
-    val navigationBarBrightnessStack = LocalNavigationBarBrightnessStack.current
-        ?: viewModel<BrightnessStackViewModel>().navigationBarBrightnessStack.also {
-            ObserverNavigationBarBrightnessStack(it)
+    if (LocalStatusBarBrightnessStack.current == null) {
+        viewModel<BrightnessStackViewModel>().statusBarBrightnessStack.let { stack ->
+            ObserverStatusBarBrightnessStack(stack)
+            listValue.add(LocalStatusBarBrightnessStack provides stack)
         }
+    }
 
-    CompositionLocalProvider(
-        LocalStatusBarBrightnessStack provides statusBarBrightnessStack,
-        LocalNavigationBarBrightnessStack provides navigationBarBrightnessStack,
-    ) {
+    if (LocalNavigationBarBrightnessStack.current == null) {
+        viewModel<BrightnessStackViewModel>().navigationBarBrightnessStack.let { stack ->
+            ObserverNavigationBarBrightnessStack(stack)
+            listValue.add(LocalNavigationBarBrightnessStack provides stack)
+        }
+    }
+
+    if (listValue.isEmpty()) {
         content()
+    } else {
+        val array = listValue.toTypedArray()
+        CompositionLocalProvider(*array) {
+            content()
+        }
     }
 }
 
