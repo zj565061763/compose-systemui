@@ -60,7 +60,6 @@ afterEvaluate {
                 artifactId = libArtifactId
                 version = libVersionName
 
-                // 上传源码
                 artifact generateSourcesJar
             }
         }
