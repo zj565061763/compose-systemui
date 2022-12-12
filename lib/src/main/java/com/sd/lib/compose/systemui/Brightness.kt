@@ -73,7 +73,7 @@ sealed class Brightness {
 
 
 private abstract class TopStack<T> {
-    private val _itemHolder: MutableSet<T> = LinkedHashSet()
+    private val _itemHolder = mutableListOf<T>()
 
     fun addItem(item: T) {
         if (getTopItem() == item) return
