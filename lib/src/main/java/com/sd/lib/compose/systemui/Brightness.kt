@@ -1,6 +1,26 @@
 package com.sd.lib.compose.systemui
 
 /**
+ * 明亮度
+ */
+sealed class Brightness {
+    /**
+     * 亮色
+     */
+    class Light internal constructor() : Brightness()
+
+    /**
+     * 暗色
+     */
+    class Dark internal constructor() : Brightness()
+
+    companion object {
+        fun light(): Brightness = Light()
+        fun dark(): Brightness = Dark()
+    }
+}
+
+/**
  * 明亮度容器
  */
 interface IBrightnessStack {
@@ -50,27 +70,6 @@ internal class BrightnessStack : IBrightnessStack {
         fun update(brightness: Brightness?)
     }
 }
-
-/**
- * 明亮度
- */
-sealed class Brightness {
-    /**
-     * 亮色
-     */
-    class Light internal constructor() : Brightness()
-
-    /**
-     * 暗色
-     */
-    class Dark internal constructor() : Brightness()
-
-    companion object {
-        fun light(): Brightness = Light()
-        fun dark(): Brightness = Dark()
-    }
-}
-
 
 private abstract class TopStack<T> {
     private val _itemHolder = mutableListOf<T>()
