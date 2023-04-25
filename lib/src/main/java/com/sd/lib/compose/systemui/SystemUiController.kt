@@ -87,22 +87,23 @@ interface INavigationBarController : ISystemUiController {
 private abstract class BaseSystemUiController(
     val view: View,
     val window: Window?
-) {
+) : ISystemUiController {
+
     val windowInsetsController = window?.let {
         WindowCompat.getInsetsController(it, view)
     }
+
+    final override var behavior: Int
+        get() = windowInsetsController?.systemBarsBehavior ?: 0
+        set(value) {
+            windowInsetsController?.systemBarsBehavior = value
+        }
 }
 
 private class StatusBarController(
     view: View,
     window: Window?
 ) : BaseSystemUiController(view, window), IStatusBarController {
-
-    override var behavior: Int
-        get() = windowInsetsController?.systemBarsBehavior ?: 0
-        set(value) {
-            windowInsetsController?.systemBarsBehavior = value
-        }
 
     override var isVisible: Boolean
         get() {
@@ -142,12 +143,6 @@ private class NavigationBarController(
     view: View,
     window: Window?
 ) : BaseSystemUiController(view, window), INavigationBarController {
-
-    override var behavior: Int
-        get() = windowInsetsController?.systemBarsBehavior ?: 0
-        set(value) {
-            windowInsetsController?.systemBarsBehavior = value
-        }
 
     override var isVisible: Boolean
         get() {
