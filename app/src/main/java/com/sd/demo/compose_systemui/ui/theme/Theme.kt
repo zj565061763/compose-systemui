@@ -5,7 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.sd.lib.compose.systemui.FSystemUi
+import com.sd.lib.compose.systemui.FSystemUI
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -49,7 +49,7 @@ fun AppTheme(
         colorScheme = colorScheme,
         typography = Typography,
         content = {
-            FSystemUi {
+            FSystemUI {
                 content()
             }
         }

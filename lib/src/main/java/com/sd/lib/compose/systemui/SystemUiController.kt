@@ -52,7 +52,7 @@ fun rememberNavigationBarController(
     }
 }
 
-interface ISystemUiController {
+interface ISystemUIController {
     var behavior: Int
 
     var isVisible: Boolean
@@ -62,7 +62,7 @@ interface ISystemUiController {
     var color: Color
 }
 
-interface IStatusBarController : ISystemUiController {
+interface IStatusBarController : ISystemUIController {
     companion object {
         fun create(
             view: View,
@@ -73,7 +73,7 @@ interface IStatusBarController : ISystemUiController {
     }
 }
 
-interface INavigationBarController : ISystemUiController {
+interface INavigationBarController : ISystemUIController {
     companion object {
         fun create(
             view: View,
@@ -84,10 +84,10 @@ interface INavigationBarController : ISystemUiController {
     }
 }
 
-private abstract class BaseSystemUiController(
+private abstract class BaseSystemUIController(
     val view: View,
     val window: Window?
-) : ISystemUiController {
+) : ISystemUIController {
 
     val windowInsetsController = window?.let {
         WindowCompat.getInsetsController(it, view)
@@ -103,7 +103,7 @@ private abstract class BaseSystemUiController(
 private class StatusBarController(
     view: View,
     window: Window?
-) : BaseSystemUiController(view, window), IStatusBarController {
+) : BaseSystemUIController(view, window), IStatusBarController {
 
     override var isVisible: Boolean
         get() {
@@ -134,6 +134,7 @@ private class StatusBarController(
                     // contrast
                     transformColorForLightContent(value)
                 }
+
                 else -> value
             }.toArgb()
         }
@@ -142,7 +143,7 @@ private class StatusBarController(
 private class NavigationBarController(
     view: View,
     window: Window?
-) : BaseSystemUiController(view, window), INavigationBarController {
+) : BaseSystemUIController(view, window), INavigationBarController {
 
     override var isVisible: Boolean
         get() {
@@ -173,6 +174,7 @@ private class NavigationBarController(
                     // contrast
                     transformColorForLightContent(value)
                 }
+
                 else -> value
             }.toArgb()
         }

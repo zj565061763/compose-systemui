@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun FSystemUi(
+fun FSystemUI(
     content: @Composable () -> Unit
 ) {
     val listValue = ArrayList<ProvidedValue<*>>(2)

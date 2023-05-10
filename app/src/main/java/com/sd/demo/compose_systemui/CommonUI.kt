@@ -10,13 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.sd.lib.compose.systemui.ISystemUiController
+import com.sd.lib.compose.systemui.ISystemUIController
 
 /**
  * 颜色
  */
 @Composable
-fun BarColor(controller: ISystemUiController) {
+fun BarColor(controller: ISystemUIController) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,7 +49,7 @@ fun BarColor(controller: ISystemUiController) {
 }
 
 @Composable
-fun BarVisibility(controller: ISystemUiController) {
+fun BarVisibility(controller: ISystemUIController) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
