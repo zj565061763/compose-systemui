@@ -6,29 +6,29 @@ import android.content.ContextWrapper
 import android.view.View
 import androidx.activity.viewModels
 
-fun androidx.activity.ComponentActivity.statusBarBrightnessStack(): IBrightnessStack {
+fun androidx.activity.ComponentActivity.fStatusBarBrightnessStack(): IBrightnessStack {
     val viewModel by viewModels<BrightnessStackViewModel>()
     return viewModel.statusBarBrightnessStack
 }
 
-fun androidx.activity.ComponentActivity.navigationBarBrightnessStack(): IBrightnessStack {
+fun androidx.activity.ComponentActivity.fNavigationBarBrightnessStack(): IBrightnessStack {
     val viewModel by viewModels<BrightnessStackViewModel>()
     return viewModel.navigationBarBrightnessStack
 }
 
-fun View.statusBarBrightnessStack(): IBrightnessStack? {
+fun View.fStatusBarBrightnessStack(): IBrightnessStack? {
     val activity = context.findActivity()
     return if (activity is androidx.activity.ComponentActivity) {
-        activity.statusBarBrightnessStack()
+        activity.fStatusBarBrightnessStack()
     } else {
         null
     }
 }
 
-fun View.navigationBarBrightnessStack(): IBrightnessStack? {
+fun View.fNavigationBarBrightnessStack(): IBrightnessStack? {
     val activity = context.findActivity()
     return if (activity is androidx.activity.ComponentActivity) {
-        activity.navigationBarBrightnessStack()
+        activity.fNavigationBarBrightnessStack()
     } else {
         null
     }
