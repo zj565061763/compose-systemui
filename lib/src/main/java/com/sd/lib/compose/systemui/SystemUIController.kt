@@ -64,6 +64,8 @@ interface ISystemUIController {
 
 interface IStatusBarController : ISystemUIController {
     companion object {
+        @JvmOverloads
+        @JvmStatic
         fun create(
             view: View,
             window: Window? = view.context.findWindow(),
@@ -75,6 +77,8 @@ interface IStatusBarController : ISystemUIController {
 
 interface INavigationBarController : ISystemUIController {
     companion object {
+        @JvmOverloads
+        @JvmStatic
         fun create(
             view: View,
             window: Window? = view.context.findWindow(),
