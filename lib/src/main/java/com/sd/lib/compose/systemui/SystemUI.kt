@@ -49,6 +49,16 @@ fun FSystemUI(
     }
 }
 
+@Composable
+fun fStatusBarController(): IStatusBarController {
+    return checkNotNull(LocalStatusBarController.current) { "This should be used in FSystemUI" }
+}
+
+@Composable
+fun fNavigationBarController(): INavigationBarController {
+    return checkNotNull(LocalNavigationBarController.current) { "This should be used in FSystemUI" }
+}
+
 internal class BrightnessStackViewModel : ViewModel() {
     private var _statusBarController: IStatusBarController? = null
     private var _navigationBarController: INavigationBarController? = null
