@@ -33,7 +33,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 
 @Composable
-fun rememberStatusBarController(
+internal fun rememberStatusBarController(
     window: Window? = findWindow(),
 ): IStatusBarController {
     val view = LocalView.current
@@ -43,7 +43,7 @@ fun rememberStatusBarController(
 }
 
 @Composable
-fun rememberNavigationBarController(
+internal fun rememberNavigationBarController(
     window: Window? = findWindow(),
 ): INavigationBarController {
     val view = LocalView.current

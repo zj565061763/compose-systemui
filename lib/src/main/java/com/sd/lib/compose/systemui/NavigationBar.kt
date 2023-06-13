@@ -3,9 +3,7 @@ package com.sd.lib.compose.systemui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.staticCompositionLocalOf
-
-val LocalNavigationBarBrightnessStack = staticCompositionLocalOf<IBrightnessStack?> { null }
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun FNavigationBarLight() {
@@ -21,13 +19,16 @@ fun FNavigationBarDark() {
 
 @Composable
 private fun NavigationBarBrightness(brightness: Brightness) {
-    val stack = checkNotNull(LocalNavigationBarBrightnessStack.current) {
-        "CompositionLocal LocalNavigationBarBrightnessStack not present"
-    }
+    val stack = navigationBarBrightnessStack()
     DisposableEffect(stack, brightness) {
         stack.add(brightness)
         onDispose {
             stack.remove(brightness)
         }
     }
+}
+
+@Composable
+private fun navigationBarBrightnessStack(): IBrightnessStack {
+    return viewModel<BrightnessStackViewModel>().navigationBarBrightnessStack
 }
