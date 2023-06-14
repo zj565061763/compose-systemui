@@ -89,12 +89,12 @@ private abstract class TopStack<T> {
         }
     }
 
-    private fun notifyTopItem() {
-        updateTopItem(getTopItem())
-    }
-
     private fun getTopItem(): T? {
         return _itemHolder.lastOrNull()
+    }
+
+    private fun notifyTopItem() {
+        updateTopItem(getTopItem())
     }
 
     abstract fun updateTopItem(item: T?)
