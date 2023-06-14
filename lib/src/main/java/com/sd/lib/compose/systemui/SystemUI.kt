@@ -110,4 +110,10 @@ internal class BrightnessStackViewModel : ViewModel() {
             _navigationBarController = null
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        _statusBarController = null
+        _navigationBarController = null
+    }
 }
