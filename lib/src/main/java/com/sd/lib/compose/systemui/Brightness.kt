@@ -83,9 +83,11 @@ private abstract class TopStack<T> {
 
     fun removeItem(item: T) {
         val isTop = getTopItem() == item
-        _itemHolder.remove(item)
         if (isTop) {
+            _itemHolder.removeLast().also { check(it == item) }
             notifyTopItem()
+        } else {
+            _itemHolder.remove(item)
         }
     }
 
