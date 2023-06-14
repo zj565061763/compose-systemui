@@ -27,6 +27,9 @@ class MainActivity : ComponentActivity() {
                     onClickNavigationBar = {
                         startActivity(Intent(this, NavigationBarActivity::class.java))
                     },
+                    onClickView = {
+                        startActivity(Intent(this, ViewActivity::class.java))
+                    },
                 )
             }
         }
@@ -37,6 +40,7 @@ class MainActivity : ComponentActivity() {
 private fun Content(
     onClickStatusBar: () -> Unit,
     onClickNavigationBar: () -> Unit,
+    onClickView: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -53,6 +57,12 @@ private fun Content(
             onClick = onClickNavigationBar
         ) {
             Text("NavigationBar")
+        }
+
+        Button(
+            onClick = onClickView
+        ) {
+            Text("View")
         }
     }
 }

@@ -24,6 +24,7 @@
 
         <activity android:name=".StatusBarActivity" />
         <activity android:name=".NavigationBarActivity" />
+        <activity android:name=".ViewActivity" />
 
     </application>
 
