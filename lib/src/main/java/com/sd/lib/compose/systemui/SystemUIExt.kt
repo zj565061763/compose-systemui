@@ -48,24 +48,13 @@ class FSystemUIView(
     context: Context,
     attrs: AttributeSet?,
 ) : FrameLayout(context, attrs) {
-
-    private val _composeView = ComposeView(context)
-    private var _statusBarController: IStatusBarController? = null
-    private var _navigationBarController: INavigationBarController? = null
-
-    val statusBarController: IStatusBarController
-        get() = checkNotNull(_statusBarController)
-
-    val navigationBarController: INavigationBarController
-        get() = checkNotNull(_navigationBarController)
-
     init {
-        addView(_composeView)
-        _composeView.setContent {
-            FSystemUI {
-                _statusBarController = fStatusBarController()
-                _navigationBarController = fNavigationBarController()
+        val composeView = ComposeView(context).apply {
+            setContent {
+                FSystemUI {
+                }
             }
         }
+        addView(composeView)
     }
 }
