@@ -14,9 +14,11 @@ internal val LocalNavigationBarController = staticCompositionLocalOf<INavigation
 fun FSystemUI(
     content: @Composable () -> Unit
 ) {
-    if (LocalStatusBarController.current != null || LocalNavigationBarController.current != null) {
-        checkNotNull(LocalStatusBarController.current)
-        checkNotNull(LocalNavigationBarController.current)
+    val currentStatusBarController = LocalStatusBarController.current
+    val currentNavigationBarController = LocalNavigationBarController.current
+    if (currentStatusBarController != null || currentNavigationBarController != null) {
+        checkNotNull(currentStatusBarController)
+        checkNotNull(currentNavigationBarController)
         content()
         return
     }
