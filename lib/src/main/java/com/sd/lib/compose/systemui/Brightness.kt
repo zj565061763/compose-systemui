@@ -48,14 +48,17 @@ internal abstract class BrightnessStack : IBrightnessStack {
         }
     }
 
+    @Synchronized
     override fun add(brightness: Brightness) {
         _stack.add(brightness)
     }
 
+    @Synchronized
     override fun remove(brightness: Brightness) {
         _stack.remove(brightness)
     }
 
+    @Synchronized
     override fun last(): Brightness? {
         return _stack.last()
     }
