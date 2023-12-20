@@ -63,16 +63,16 @@ internal class BrightnessStack : IBrightnessStack {
 
     @Synchronized
     override fun add(brightness: Brightness) {
-        _topStack.addItem(brightness)
+        _topStack.add(brightness)
     }
 
     @Synchronized
     override fun remove(brightness: Brightness) {
-        _topStack.removeItem(brightness)
+        _topStack.remove(brightness)
     }
 
     override fun last(): Brightness? {
-        return _topStack.getTopItem()
+        return _topStack.last()
     }
 
     fun interface Callback {
@@ -83,15 +83,15 @@ internal class BrightnessStack : IBrightnessStack {
 private abstract class TopStack<T> {
     private val _itemHolder = mutableListOf<T>()
 
-    fun addItem(item: T) {
-        if (getTopItem() == item) return
+    fun add(item: T) {
+        if (last() == item) return
         _itemHolder.remove(item)
         _itemHolder.add(item)
         notifyTopItem()
     }
 
-    fun removeItem(item: T) {
-        val isTop = getTopItem() == item
+    fun remove(item: T) {
+        val isTop = last() == item
         if (isTop) {
             _itemHolder.removeLast().also { check(it == item) }
             notifyTopItem()
@@ -100,12 +100,12 @@ private abstract class TopStack<T> {
         }
     }
 
-    fun getTopItem(): T? {
+    fun last(): T? {
         return _itemHolder.lastOrNull()
     }
 
     private fun notifyTopItem() {
-        updateTopItem(getTopItem())
+        updateTopItem(last())
     }
 
     abstract fun updateTopItem(item: T?)
