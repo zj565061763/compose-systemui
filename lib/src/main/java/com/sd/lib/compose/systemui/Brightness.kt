@@ -91,9 +91,8 @@ private abstract class TopStack<T> {
     }
 
     fun remove(item: T) {
-        val isTop = last() == item
-        if (isTop) {
-            _itemHolder.removeLast().also { check(it == item) }
+        if (last() == item) {
+            _itemHolder.removeLast()
             notifyTopItem()
         } else {
             _itemHolder.remove(item)
