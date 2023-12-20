@@ -44,7 +44,7 @@ internal class BrightnessStack : IBrightnessStack {
     private var _callback: Callback? = null
 
     private val _topStack = object : TopStack<Brightness>() {
-        override fun updateTopItem(item: Brightness?) {
+        override fun onLastItemChanged(item: Brightness?) {
             _callback?.update(item)
         }
     }
@@ -104,8 +104,8 @@ private abstract class TopStack<T> {
     }
 
     private fun notifyCallback() {
-        updateTopItem(last())
+        onLastItemChanged(last())
     }
 
-    abstract fun updateTopItem(item: T?)
+    abstract fun onLastItemChanged(item: T?)
 }
