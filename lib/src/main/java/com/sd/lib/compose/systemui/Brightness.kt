@@ -87,13 +87,13 @@ private abstract class TopStack<T> {
         if (last() == item) return
         _itemHolder.remove(item)
         _itemHolder.add(item)
-        notifyTopItem()
+        notifyCallback()
     }
 
     fun remove(item: T) {
         if (last() == item) {
             _itemHolder.removeLast()
-            notifyTopItem()
+            notifyCallback()
         } else {
             _itemHolder.remove(item)
         }
@@ -103,7 +103,7 @@ private abstract class TopStack<T> {
         return _itemHolder.lastOrNull()
     }
 
-    private fun notifyTopItem() {
+    private fun notifyCallback() {
         updateTopItem(last())
     }
 
