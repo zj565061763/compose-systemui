@@ -2,13 +2,13 @@ package com.sd.demo.compose_systemui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import com.sd.demo.compose_systemui.databinding.ActivitySampleViewBinding
+import com.sd.demo.compose_systemui.databinding.SampleViewBinding
 import com.sd.lib.compose.systemui.Brightness
 import com.sd.lib.compose.systemui.IStatusBarController
 import com.sd.lib.compose.systemui.fStatusBarBrightnessStack
 
 class SampleView : ComponentActivity() {
-    private val _binding by lazy { ActivitySampleViewBinding.inflate(layoutInflater) }
+    private val _binding by lazy { SampleViewBinding.inflate(layoutInflater) }
 
     private val _statusBarController by lazy {
         IStatusBarController.create(_binding.root)

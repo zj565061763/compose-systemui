@@ -23,7 +23,7 @@
         </activity>
 
         <activity android:name=".SampleStatusBar" />
-        <activity android:name=".SampleNavigation" />
+        <activity android:name=".SampleNavigationBar" />
         <activity android:name=".SampleView" />
 
     </application>

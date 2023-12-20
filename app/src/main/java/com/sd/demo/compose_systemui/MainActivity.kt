@@ -1,15 +1,20 @@
 package com.sd.demo.compose_systemui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,14 +26,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 Content(
-                    onClickStatusBar = {
-                        startActivity(Intent(this, SampleStatusBar::class.java))
-                    },
-                    onClickNavigationBar = {
-                        startActivity(Intent(this, SampleNavigation::class.java))
-                    },
-                    onClickView = {
-                        startActivity(Intent(this, SampleView::class.java))
+                    listActivity = listOf(
+                        SampleStatusBar::class.java,
+                        SampleNavigationBar::class.java,
+                        SampleView::class.java,
+                    ),
+                    onClickActivity = {
+                        startActivity(Intent(this, it))
                     },
                 )
             }
@@ -38,31 +42,26 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun Content(
-    onClickStatusBar: () -> Unit,
-    onClickNavigationBar: () -> Unit,
-    onClickView: () -> Unit,
+    listActivity: List<Class<out Activity>>,
+    onClickActivity: (Class<out Activity>) -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    val onClickActivityUpdated by rememberUpdatedState(onClickActivity)
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding(),
         verticalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Button(
-            onClick = onClickStatusBar
-        ) {
-            Text("StatusBar")
-        }
-
-        Button(
-            onClick = onClickNavigationBar
-        ) {
-            Text("NavigationBar")
-        }
-
-        Button(
-            onClick = onClickView
-        ) {
-            Text("View")
+        items(
+            listActivity,
+            key = { it },
+        ) { item ->
+            Button(
+                onClick = { onClickActivityUpdated(item) }
+            ) {
+                Text(text = item.simpleName)
+            }
         }
     }
 }
