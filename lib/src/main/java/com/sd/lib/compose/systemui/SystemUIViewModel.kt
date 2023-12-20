@@ -19,6 +19,7 @@ internal class StatusBarViewModel : SystemUIViewModel<IStatusBarController>()
 internal class NavigationBarViewModel : SystemUIViewModel<INavigationBarController>()
 
 internal abstract class SystemUIViewModel<T : ISystemUIController> : ViewModel() {
+    @Volatile
     private var _controller: T? = null
 
     val brightnessStack: IBrightnessStack = object : BrightnessStack() {
