@@ -22,8 +22,8 @@ internal abstract class SystemUIViewModel<T : ISystemUIController> : ViewModel()
     private var _controller: T? = null
 
     val brightnessStack: IBrightnessStack = object : BrightnessStack() {
-        override fun updateBrightness(brightness: Brightness?) {
-            this@SystemUIViewModel.updateBrightness()
+        override fun onLastBrightnessChanged(brightness: Brightness?) {
+            updateBrightness()
         }
     }
 
