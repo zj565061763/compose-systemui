@@ -3,19 +3,24 @@ package com.sd.lib.compose.systemui
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import android.util.AttributeSet
 import android.view.View
-import android.widget.FrameLayout
 import androidx.activity.viewModels
-import androidx.compose.ui.platform.ComposeView
 
 fun androidx.activity.ComponentActivity.fStatusBarBrightnessStack(): IBrightnessStack {
     val viewModel by viewModels<StatusBarViewModel>()
+    if (viewModel.getController() == null) {
+        val controller = IStatusBarController.create(view = window.decorView, window = window)
+        viewModel.registerController(controller)
+    }
     return viewModel.brightnessStack
 }
 
 fun androidx.activity.ComponentActivity.fNavigationBarBrightnessStack(): IBrightnessStack {
     val viewModel by viewModels<NavigationBarViewModel>()
+    if (viewModel.getController() == null) {
+        val controller = INavigationBarController.create(view = window.decorView, window = window)
+        viewModel.registerController(controller)
+    }
     return viewModel.brightnessStack
 }
 
@@ -43,18 +48,3 @@ private tailrec fun Context.findActivity(): Activity? =
         is ContextWrapper -> baseContext.findActivity()
         else -> null
     }
-
-class FSystemUIView(
-    context: Context,
-    attrs: AttributeSet?,
-) : FrameLayout(context, attrs) {
-    init {
-        val composeView = ComposeView(context).apply {
-            setContent {
-                FSystemUI {
-                }
-            }
-        }
-        addView(composeView)
-    }
-}
