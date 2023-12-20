@@ -32,19 +32,20 @@ fun BarColor(controller: ISystemUIController) {
 
         Button(
             onClick = {
-                controller.color = Color.Green
-            }
-        ) {
-            Text("Green")
-        }
-
-        Button(
-            onClick = {
                 controller.color = Color.Blue
             }
         ) {
             Text("Blue")
         }
+
+        Button(
+            onClick = {
+                controller.color = Color.Transparent
+            }
+        ) {
+            Text("Transparent")
+        }
+
     }
 }
 
