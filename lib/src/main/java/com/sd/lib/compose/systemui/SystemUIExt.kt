@@ -10,13 +10,13 @@ import androidx.activity.viewModels
 import androidx.compose.ui.platform.ComposeView
 
 fun androidx.activity.ComponentActivity.fStatusBarBrightnessStack(): IBrightnessStack {
-    val viewModel by viewModels<BrightnessStackViewModel>()
-    return viewModel.statusBarBrightnessStack
+    val viewModel by viewModels<StatusBarViewModel>()
+    return viewModel.brightnessStack
 }
 
 fun androidx.activity.ComponentActivity.fNavigationBarBrightnessStack(): IBrightnessStack {
-    val viewModel by viewModels<BrightnessStackViewModel>()
-    return viewModel.navigationBarBrightnessStack
+    val viewModel by viewModels<NavigationBarViewModel>()
+    return viewModel.brightnessStack
 }
 
 fun View.fStatusBarBrightnessStack(): IBrightnessStack? {

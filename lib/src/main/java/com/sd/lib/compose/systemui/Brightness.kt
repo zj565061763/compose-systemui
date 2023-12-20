@@ -40,45 +40,27 @@ interface IBrightnessStack {
     fun last(): Brightness?
 }
 
-internal class BrightnessStack : IBrightnessStack {
-    private var _callback: Callback? = null
+internal abstract class BrightnessStack : IBrightnessStack {
 
     private val _stack = object : LastStack<Brightness>() {
         override fun onLastItemChanged(item: Brightness?) {
-            _callback?.update(item)
+            this@BrightnessStack.updateBrightness(item)
         }
     }
 
-    @Synchronized
-    fun registerCallback(callback: Callback) {
-        _callback = callback
-    }
-
-    @Synchronized
-    fun unregisterCallback(callback: Callback) {
-        if (_callback === callback) {
-            _callback = null
-        }
-    }
-
-    @Synchronized
     override fun add(brightness: Brightness) {
         _stack.add(brightness)
     }
 
-    @Synchronized
     override fun remove(brightness: Brightness) {
         _stack.remove(brightness)
     }
 
-    @Synchronized
     override fun last(): Brightness? {
         return _stack.last()
     }
 
-    fun interface Callback {
-        fun update(brightness: Brightness?)
-    }
+    protected abstract fun updateBrightness(brightness: Brightness?)
 }
 
 private abstract class LastStack<T> {
