@@ -43,7 +43,7 @@ interface IBrightnessStack {
 internal class BrightnessStack : IBrightnessStack {
     private var _callback: Callback? = null
 
-    private val _topStack = object : TopStack<Brightness>() {
+    private val _stack = object : LastStack<Brightness>() {
         override fun onLastItemChanged(item: Brightness?) {
             _callback?.update(item)
         }
@@ -63,16 +63,17 @@ internal class BrightnessStack : IBrightnessStack {
 
     @Synchronized
     override fun add(brightness: Brightness) {
-        _topStack.add(brightness)
+        _stack.add(brightness)
     }
 
     @Synchronized
     override fun remove(brightness: Brightness) {
-        _topStack.remove(brightness)
+        _stack.remove(brightness)
     }
 
+    @Synchronized
     override fun last(): Brightness? {
-        return _topStack.last()
+        return _stack.last()
     }
 
     fun interface Callback {
@@ -80,7 +81,7 @@ internal class BrightnessStack : IBrightnessStack {
     }
 }
 
-private abstract class TopStack<T> {
+private abstract class LastStack<T> {
     private val _itemHolder = mutableListOf<T>()
 
     fun add(item: T) {
