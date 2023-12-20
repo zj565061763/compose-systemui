@@ -24,10 +24,17 @@
             android:textAllCaps="false" />
 
         <Button
-            android:id="@+id/btn_toggle_visible"
+            android:id="@+id/btn_show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="toggle visible"
+            android:text="show"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btn_hide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hide"
             android:textAllCaps="false" />
 
     </LinearLayout>

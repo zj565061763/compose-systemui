@@ -24,8 +24,12 @@ class SampleView : ComponentActivity() {
             _statusBarController.isLight = false
         }
 
-        _binding.btnToggleVisible.setOnClickListener {
-            _statusBarController.isVisible = !_statusBarController.isVisible
+        _binding.btnShow.setOnClickListener {
+            _statusBarController.isVisible = true
+        }
+
+        _binding.btnHide.setOnClickListener {
+            _statusBarController.isVisible = false
         }
     }
 }

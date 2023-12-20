@@ -50,10 +50,18 @@ fun BarVisibility(controller: ISystemUIController) {
     ) {
         Button(
             onClick = {
-                controller.isVisible = !controller.isVisible
+                controller.isVisible = true
             }
         ) {
-            Text("toggle")
+            Text("show")
+        }
+
+        Button(
+            onClick = {
+                controller.isVisible = false
+            }
+        ) {
+            Text("hide")
         }
     }
 }
