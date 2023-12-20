@@ -22,9 +22,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".StatusBarActivity" />
-        <activity android:name=".NavigationBarActivity" />
-        <activity android:name=".ViewActivity" />
+        <activity android:name=".SampleStatusBar" />
+        <activity android:name=".SampleNavigation" />
+        <activity android:name=".SampleView" />
 
     </application>
 

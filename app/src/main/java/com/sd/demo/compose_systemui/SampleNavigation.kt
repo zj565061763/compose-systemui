@@ -26,7 +26,7 @@ import com.sd.lib.compose.systemui.FNavigationBarLight
 import com.sd.lib.compose.systemui.FSystemUI
 import com.sd.lib.compose.systemui.fNavigationBarController
 
-class NavigationBarActivity : ComponentActivity() {
+class SampleNavigation : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)

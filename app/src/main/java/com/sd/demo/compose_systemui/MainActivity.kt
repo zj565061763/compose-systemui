@@ -22,13 +22,13 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 Content(
                     onClickStatusBar = {
-                        startActivity(Intent(this, StatusBarActivity::class.java))
+                        startActivity(Intent(this, SampleStatusBar::class.java))
                     },
                     onClickNavigationBar = {
-                        startActivity(Intent(this, NavigationBarActivity::class.java))
+                        startActivity(Intent(this, SampleNavigation::class.java))
                     },
                     onClickView = {
-                        startActivity(Intent(this, ViewActivity::class.java))
+                        startActivity(Intent(this, SampleView::class.java))
                     },
                 )
             }

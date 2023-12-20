@@ -26,7 +26,7 @@ import com.sd.lib.compose.systemui.FStatusBarLight
 import com.sd.lib.compose.systemui.FSystemUI
 import com.sd.lib.compose.systemui.fStatusBarController
 
-class StatusBarActivity : ComponentActivity() {
+class SampleStatusBar : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
