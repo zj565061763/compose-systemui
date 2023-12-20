@@ -28,13 +28,18 @@ internal abstract class SystemUIViewModel<T : ISystemUIController> : ViewModel()
         }
     }
 
+    fun getController(): T? = _controller
+
     fun registerController(controller: T) {
-        _controller = controller
-        updateBrightness()
+        // controller对象只要存在就可以正常工作，不考虑并发
+        if (_controller == null) {
+            _controller = controller
+            updateBrightness()
+        }
     }
 
     fun unregisterController(controller: T) {
-        if (_controller == controller) {
+        if (_controller === controller) {
             _controller = null
         }
     }
