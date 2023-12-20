@@ -33,6 +33,11 @@ interface IBrightnessStack {
      * 移除
      */
     fun remove(brightness: Brightness)
+
+    /**
+     * 最后一个对象
+     */
+    fun last(): Brightness?
 }
 
 internal class BrightnessStack : IBrightnessStack {
@@ -66,6 +71,10 @@ internal class BrightnessStack : IBrightnessStack {
         _topStack.removeItem(brightness)
     }
 
+    override fun last(): Brightness? {
+        return _topStack.getTopItem()
+    }
+
     fun interface Callback {
         fun update(brightness: Brightness?)
     }
@@ -91,7 +100,7 @@ private abstract class TopStack<T> {
         }
     }
 
-    private fun getTopItem(): T? {
+    fun getTopItem(): T? {
         return _itemHolder.lastOrNull()
     }
 
