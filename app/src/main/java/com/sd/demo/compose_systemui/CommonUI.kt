@@ -24,14 +24,6 @@ fun BarColor(controller: ISystemUIController) {
     ) {
         Button(
             onClick = {
-                controller.color = Color.Red
-            }
-        ) {
-            Text("Red")
-        }
-
-        Button(
-            onClick = {
                 controller.color = Color.Blue
             }
         ) {
