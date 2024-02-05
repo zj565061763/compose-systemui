@@ -6,7 +6,7 @@ plugins {
 
 val libGroupId = "com.sd.lib.android"
 val libArtifactId = "compose-systemui"
-val libVersionName = "1.0.0"
+val libVersionName = "1.1.0"
 
 android {
     namespace = "com.sd.lib.compose.systemui"
