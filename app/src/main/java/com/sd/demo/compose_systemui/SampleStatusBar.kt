@@ -42,7 +42,6 @@ private fun Content() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp),
     ) {
-        // 明亮度
         BarBrightness { isLight ->
             if (isLight) {
                 FStatusBarLight()
