@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -51,10 +51,10 @@ private fun Content() {
     ) {
         BarBrightness()
 
-        Divider()
+        HorizontalDivider()
         BarColor(fStatusBarController())
 
-        Divider()
+        HorizontalDivider()
         BarVisibility(fStatusBarController())
     }
 }
