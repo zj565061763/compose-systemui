@@ -6,13 +6,13 @@ plugins {
 
 val libGroupId = "com.sd.lib.android"
 val libArtifactId = "compose-systemui"
-val libVersionName = "1.1.1"
+val libVersion = "1.1.1"
 
 android {
     namespace = "com.sd.lib.compose.systemui"
     compileSdk = libs.versions.androidCompileSdk.get().toInt()
     defaultConfig {
-        minSdk = libs.versions.androidMinSdk.get().toInt()
+        minSdk = 21
     }
 
     kotlinOptions {
@@ -48,7 +48,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = libGroupId
             artifactId = libArtifactId
-            version = libVersionName
+            version = libVersion
 
             afterEvaluate {
                 from(components["release"])
