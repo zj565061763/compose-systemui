@@ -21,33 +21,33 @@ import com.sd.lib.compose.systemui.ISystemUIController
  */
 @Composable
 fun BarBrightness(
-    onChange: @Composable (isLight: Boolean) -> Unit,
+  onChange: @Composable (isLight: Boolean) -> Unit,
 ) {
-    var isLight by remember { mutableStateOf(false) }
+  var isLight by remember { mutableStateOf(false) }
 
-    onChange(isLight)
+  onChange(isLight)
 
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp),
+  Column(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(5.dp),
+  ) {
+    Button(
+      onClick = {
+        isLight = true
+      }
     ) {
-        Button(
-            onClick = {
-                isLight = true
-            }
-        ) {
-            Text("light")
-        }
-
-        Button(
-            onClick = {
-                isLight = false
-            }
-        ) {
-            Text("dark")
-        }
+      Text("light")
     }
+
+    Button(
+      onClick = {
+        isLight = false
+      }
+    ) {
+      Text("dark")
+    }
+  }
 }
 
 /**
@@ -55,51 +55,51 @@ fun BarBrightness(
  */
 @Composable
 fun BarColor(controller: ISystemUIController) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp),
+  Column(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(5.dp),
+  ) {
+    Button(
+      onClick = {
+        controller.color = Color.Blue
+      }
     ) {
-        Button(
-            onClick = {
-                controller.color = Color.Blue
-            }
-        ) {
-            Text("Blue")
-        }
-
-        Button(
-            onClick = {
-                controller.color = Color.Transparent
-            }
-        ) {
-            Text("Transparent")
-        }
-
+      Text("Blue")
     }
+
+    Button(
+      onClick = {
+        controller.color = Color.Transparent
+      }
+    ) {
+      Text("Transparent")
+    }
+
+  }
 }
 
 @Composable
 fun BarVisibility(controller: ISystemUIController) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp),
+  Column(
+    modifier = Modifier.fillMaxWidth(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(5.dp),
+  ) {
+    Button(
+      onClick = {
+        controller.isVisible = true
+      }
     ) {
-        Button(
-            onClick = {
-                controller.isVisible = true
-            }
-        ) {
-            Text("show")
-        }
-
-        Button(
-            onClick = {
-                controller.isVisible = false
-            }
-        ) {
-            Text("hide")
-        }
+      Text("show")
     }
+
+    Button(
+      onClick = {
+        controller.isVisible = false
+      }
+    ) {
+      Text("hide")
+    }
+  }
 }

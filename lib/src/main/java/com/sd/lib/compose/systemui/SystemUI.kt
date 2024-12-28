@@ -10,57 +10,57 @@ internal val LocalNavigationBarController = staticCompositionLocalOf<INavigation
 
 @Composable
 fun FSystemUI(
-    content: @Composable () -> Unit
+  content: @Composable () -> Unit,
 ) {
-    run {
-        val localStatusBarController = LocalStatusBarController.current
-        val localNavigationBarController = LocalNavigationBarController.current
-        if (localStatusBarController != null || localNavigationBarController != null) {
-            checkNotNull(localStatusBarController)
-            checkNotNull(localNavigationBarController)
-            content()
-            return
-        }
+  run {
+    val localStatusBarController = LocalStatusBarController.current
+    val localNavigationBarController = LocalNavigationBarController.current
+    if (localStatusBarController != null || localNavigationBarController != null) {
+      checkNotNull(localStatusBarController)
+      checkNotNull(localNavigationBarController)
+      content()
+      return
     }
+  }
 
-    val statusBarController = run {
-        val viewModel = statusBarViewModel()
-        val controller = rememberStatusBarController()
-        DisposableEffect(viewModel, controller) {
-            viewModel.registerController(controller)
-            onDispose {
-                viewModel.unregisterController(controller)
-            }
-        }
-        controller
+  val statusBarController = run {
+    val viewModel = statusBarViewModel()
+    val controller = rememberStatusBarController()
+    DisposableEffect(viewModel, controller) {
+      viewModel.registerController(controller)
+      onDispose {
+        viewModel.unregisterController(controller)
+      }
     }
+    controller
+  }
 
-    val navigationBarController = run {
-        val viewModel = navigationBarViewModel()
-        val controller = rememberNavigationBarController()
-        DisposableEffect(viewModel, controller) {
-            viewModel.registerController(controller)
-            onDispose {
-                viewModel.unregisterController(controller)
-            }
-        }
-        controller
+  val navigationBarController = run {
+    val viewModel = navigationBarViewModel()
+    val controller = rememberNavigationBarController()
+    DisposableEffect(viewModel, controller) {
+      viewModel.registerController(controller)
+      onDispose {
+        viewModel.unregisterController(controller)
+      }
     }
+    controller
+  }
 
-    CompositionLocalProvider(
-        LocalStatusBarController provides statusBarController,
-        LocalNavigationBarController provides navigationBarController,
-    ) {
-        content()
-    }
+  CompositionLocalProvider(
+    LocalStatusBarController provides statusBarController,
+    LocalNavigationBarController provides navigationBarController,
+  ) {
+    content()
+  }
 }
 
 @Composable
 fun fStatusBarController(): IStatusBarController {
-    return checkNotNull(LocalStatusBarController.current) { "This should be used in FSystemUI" }
+  return checkNotNull(LocalStatusBarController.current) { "This should be used in FSystemUI" }
 }
 
 @Composable
 fun fNavigationBarController(): INavigationBarController {
-    return checkNotNull(LocalNavigationBarController.current) { "This should be used in FSystemUI" }
+  return checkNotNull(LocalNavigationBarController.current) { "This should be used in FSystemUI" }
 }

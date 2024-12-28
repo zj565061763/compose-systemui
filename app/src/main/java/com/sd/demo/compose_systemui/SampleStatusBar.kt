@@ -20,40 +20,40 @@ import com.sd.lib.compose.systemui.FSystemUI
 import com.sd.lib.compose.systemui.fStatusBarController
 
 class SampleStatusBar : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        setContent {
-            AppTheme {
-                FSystemUI {
-                    Content()
-                }
-            }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+    setContent {
+      AppTheme {
+        FSystemUI {
+          Content()
         }
+      }
     }
+  }
 }
 
 @Composable
 private fun Content() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp),
-    ) {
-        BarBrightness { isLight ->
-            if (isLight) {
-                FStatusBarLight()
-            } else {
-                FStatusBarDark()
-            }
-        }
-
-        HorizontalDivider()
-        BarColor(fStatusBarController())
-
-        HorizontalDivider()
-        BarVisibility(fStatusBarController())
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .statusBarsPadding(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(5.dp),
+  ) {
+    BarBrightness { isLight ->
+      if (isLight) {
+        FStatusBarLight()
+      } else {
+        FStatusBarDark()
+      }
     }
+
+    HorizontalDivider()
+    BarColor(fStatusBarController())
+
+    HorizontalDivider()
+    BarVisibility(fStatusBarController())
+  }
 }

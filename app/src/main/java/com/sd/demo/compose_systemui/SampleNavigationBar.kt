@@ -20,40 +20,40 @@ import com.sd.lib.compose.systemui.FSystemUI
 import com.sd.lib.compose.systemui.fNavigationBarController
 
 class SampleNavigationBar : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        setContent {
-            AppTheme {
-                FSystemUI {
-                    Content()
-                }
-            }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+    setContent {
+      AppTheme {
+        FSystemUI {
+          Content()
         }
+      }
     }
+  }
 }
 
 @Composable
 private fun Content() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(5.dp),
-    ) {
-        BarBrightness { isLight ->
-            if (isLight) {
-                FNavigationBarLight()
-            } else {
-                FNavigationBarDark()
-            }
-        }
-
-        HorizontalDivider()
-        BarColor(fNavigationBarController())
-
-        HorizontalDivider()
-        BarVisibility(fNavigationBarController())
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .statusBarsPadding(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(5.dp),
+  ) {
+    BarBrightness { isLight ->
+      if (isLight) {
+        FNavigationBarLight()
+      } else {
+        FNavigationBarDark()
+      }
     }
+
+    HorizontalDivider()
+    BarColor(fNavigationBarController())
+
+    HorizontalDivider()
+    BarVisibility(fNavigationBarController())
+  }
 }

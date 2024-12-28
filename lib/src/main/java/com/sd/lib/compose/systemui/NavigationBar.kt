@@ -6,23 +6,23 @@ import androidx.compose.runtime.remember
 
 @Composable
 fun FNavigationBarLight() {
-    val brightness = remember { Brightness.light() }
-    NavigationBarBrightness(brightness)
+  val brightness = remember { Brightness.light() }
+  NavigationBarBrightness(brightness)
 }
 
 @Composable
 fun FNavigationBarDark() {
-    val brightness = remember { Brightness.dark() }
-    NavigationBarBrightness(brightness)
+  val brightness = remember { Brightness.dark() }
+  NavigationBarBrightness(brightness)
 }
 
 @Composable
 private fun NavigationBarBrightness(brightness: Brightness) {
-    val stack = navigationBarViewModel().brightnessStack
-    DisposableEffect(stack, brightness) {
-        stack.add(brightness)
-        onDispose {
-            stack.remove(brightness)
-        }
+  val stack = navigationBarViewModel().brightnessStack
+  DisposableEffect(stack, brightness) {
+    stack.add(brightness)
+    onDispose {
+      stack.remove(brightness)
     }
+  }
 }
