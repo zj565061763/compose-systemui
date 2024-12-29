@@ -57,10 +57,10 @@ fun FSystemUI(
 
 @Composable
 fun fStatusBarController(): IStatusBarController {
-  return checkNotNull(LocalStatusBarController.current) { "This should be used in FSystemUI" }
+  return checkNotNull(LocalStatusBarController.current) { "Not in FSystemUI scope." }
 }
 
 @Composable
 fun fNavigationBarController(): INavigationBarController {
-  return checkNotNull(LocalNavigationBarController.current) { "This should be used in FSystemUI" }
+  return checkNotNull(LocalNavigationBarController.current) { "Not in FSystemUI scope." }
 }
