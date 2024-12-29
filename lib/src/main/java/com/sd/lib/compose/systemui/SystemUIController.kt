@@ -54,11 +54,8 @@ internal fun rememberNavigationBarController(
 
 interface ISystemUIController {
   var behavior: Int
-
   var isVisible: Boolean
-
   var isLight: Boolean
-
   var color: Color
 }
 
@@ -89,8 +86,8 @@ interface INavigationBarController : ISystemUIController {
 }
 
 private abstract class BaseSystemUIController(
-    val view: View,
-    val window: Window?,
+  val view: View,
+  val window: Window?,
 ) : ISystemUIController {
 
   val windowInsetsController = window?.let {
@@ -105,8 +102,8 @@ private abstract class BaseSystemUIController(
 }
 
 private class StatusBarController(
-    view: View,
-    window: Window?,
+  view: View,
+  window: Window?,
 ) : BaseSystemUIController(view, window), IStatusBarController {
 
   override var isVisible: Boolean
@@ -145,8 +142,8 @@ private class StatusBarController(
 }
 
 private class NavigationBarController(
-    view: View,
-    window: Window?,
+  view: View,
+  window: Window?,
 ) : BaseSystemUIController(view, window), INavigationBarController {
 
   override var isVisible: Boolean
