@@ -1,47 +1,33 @@
 package com.sd.lib.compose.systemui
 
-/**
- * 明亮度
- */
-sealed class Brightness {
-  /**
-   * 亮色
-   */
-  class Light internal constructor() : Brightness()
+sealed interface Brightness {
+  /** 亮色 */
+  class Light internal constructor() : Brightness
 
-  /**
-   * 暗色
-   */
-  class Dark internal constructor() : Brightness()
+  /** 暗色 */
+  class Dark internal constructor() : Brightness
 
   companion object {
+    @JvmStatic
     fun light(): Brightness = Light()
+
+    @JvmStatic
     fun dark(): Brightness = Dark()
   }
 }
 
-/**
- * 明亮度容器
- */
 interface IBrightnessStack {
-  /**
-   * 添加
-   */
+  /** 添加 */
   fun add(brightness: Brightness)
 
-  /**
-   * 移除
-   */
+  /** 移除 */
   fun remove(brightness: Brightness)
 
-  /**
-   * 最后一个对象
-   */
+  /** 最后一个对象 */
   fun last(): Brightness?
 }
 
 internal abstract class BrightnessStack : IBrightnessStack {
-
   private val _stack = object : LastStack<Brightness>() {
     override fun onLastItemChanged(item: Brightness?) {
       this@BrightnessStack.onLastBrightnessChanged(item)
@@ -67,26 +53,26 @@ internal abstract class BrightnessStack : IBrightnessStack {
 }
 
 private abstract class LastStack<T> {
-  private val _itemHolder = mutableListOf<T>()
+  private val _holder = mutableListOf<T>()
 
   fun add(item: T) {
     if (last() == item) return
-    _itemHolder.remove(item)
-    _itemHolder.add(item)
+    _holder.remove(item)
+    _holder.add(item)
     notifyCallback()
   }
 
   fun remove(item: T) {
     if (last() == item) {
-      _itemHolder.removeLast()
+      _holder.removeAt(_holder.lastIndex)
       notifyCallback()
     } else {
-      _itemHolder.remove(item)
+      _holder.remove(item)
     }
   }
 
   fun last(): T? {
-    return _itemHolder.lastOrNull()
+    return _holder.lastOrNull()
   }
 
   private fun notifyCallback() {

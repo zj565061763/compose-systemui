@@ -16,9 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.sd.lib.compose.systemui.ISystemUIController
 
-/**
- * 明亮度
- */
 @Composable
 fun BarBrightness(
   onChange: @Composable (isLight: Boolean) -> Unit,
