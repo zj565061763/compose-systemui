@@ -7,10 +7,7 @@ import com.sd.lib.compose.systemui.IStatusBarController
 
 class SampleView : ComponentActivity() {
   private val _binding by lazy { SampleViewBinding.inflate(layoutInflater) }
-
-  private val _statusBarController by lazy {
-    IStatusBarController.create(_binding.root)
-  }
+  private val _statusBarController by lazy { IStatusBarController.create(_binding.root) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

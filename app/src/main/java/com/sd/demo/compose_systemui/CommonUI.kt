@@ -16,35 +16,32 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.sd.lib.compose.systemui.ISystemUIController
 
+/**
+ * 亮度
+ */
 @Composable
-fun BarBrightness(
-  onChange: @Composable (isLight: Boolean) -> Unit,
-) {
+fun barBrightness(): Boolean {
   var isLight by remember { mutableStateOf(false) }
-
-  onChange(isLight)
 
   Column(
     modifier = Modifier.fillMaxWidth(),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(5.dp),
   ) {
-    Button(
-      onClick = {
-        isLight = true
-      }
-    ) {
+    Button(onClick = {
+      isLight = true
+    }) {
       Text("light")
     }
 
-    Button(
-      onClick = {
-        isLight = false
-      }
-    ) {
+    Button(onClick = {
+      isLight = false
+    }) {
       Text("dark")
     }
   }
+
+  return isLight
 }
 
 /**
@@ -57,19 +54,15 @@ fun BarColor(controller: ISystemUIController) {
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(5.dp),
   ) {
-    Button(
-      onClick = {
-        controller.color = Color.Blue
-      }
-    ) {
+    Button(onClick = {
+      controller.color = Color.Blue
+    }) {
       Text("Blue")
     }
 
-    Button(
-      onClick = {
-        controller.color = Color.Transparent
-      }
-    ) {
+    Button(onClick = {
+      controller.color = Color.Transparent
+    }) {
       Text("Transparent")
     }
 
@@ -83,19 +76,15 @@ fun BarVisibility(controller: ISystemUIController) {
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(5.dp),
   ) {
-    Button(
-      onClick = {
-        controller.isVisible = true
-      }
-    ) {
+    Button(onClick = {
+      controller.isVisible = true
+    }) {
       Text("show")
     }
 
-    Button(
-      onClick = {
-        controller.isVisible = false
-      }
-    ) {
+    Button(onClick = {
+      controller.isVisible = false
+    }) {
       Text("hide")
     }
   }
