@@ -30,7 +30,7 @@ interface IBrightnessStack {
 internal abstract class BrightnessStack : IBrightnessStack {
   private val _stack = object : LastStack<Brightness>() {
     override fun onLastItemChanged(item: Brightness?) {
-      this@BrightnessStack.onLastBrightnessChanged(item)
+      onBrightnessChanged(item)
     }
   }
 
@@ -49,7 +49,7 @@ internal abstract class BrightnessStack : IBrightnessStack {
     return _stack.last()
   }
 
-  protected abstract fun onLastBrightnessChanged(brightness: Brightness?)
+  protected abstract fun onBrightnessChanged(brightness: Brightness?)
 }
 
 private abstract class LastStack<T> {
